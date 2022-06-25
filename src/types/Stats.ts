@@ -1,9 +1,7 @@
 import CalculType from "./Calcul"
-import WritingType from "./Writing"
 
 interface Stats {
-   calcul: CalculType,
-   writing: WritingType
+   calcul: CalculType
 }
 
 export default Stats
