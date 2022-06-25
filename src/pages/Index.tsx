@@ -12,9 +12,7 @@ function Index() {
          setData(data)
       })
 
-      invoke("get_average_time", {
-         to: "calcul"
-      }).then((data: any) => {
+      invoke("get_average_time").then((data: any) => {
          setCalculAverageTime(data)
       })
    }, [])

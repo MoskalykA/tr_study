@@ -88,7 +88,7 @@ pub fn get_data() -> Stats {
 }
 
 #[tauri::command]
-pub fn get_average_time(to: String) -> f32 {
+pub fn get_average_time() -> f32 {
    init_save_file();
 
    let mut time: f32 = 0.0;
