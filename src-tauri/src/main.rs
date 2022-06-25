@@ -10,7 +10,7 @@ mod stats;
 mod calcul;
 
 use crate::calcul::{validate_calcul, random_calcul};
-use crate::stats::get_data;
+use crate::stats::{get_data, get_average_time};
 
 fn main() {
   let context = tauri::generate_context!();
@@ -19,7 +19,8 @@ fn main() {
       random_calcul,
       validate_calcul,
 
-      get_data
+      get_data,
+      get_average_time
     ])
     .run(context)
     .expect("error while running tauri application");

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 function Math() {
    const [calculInstruction, setCalculInstruction] = useState("")
    const [calculIsValidated, setCalculIsValidated] = useState<null | Boolean>(null)
+   const [correctCalculResponse, setCorrectCalculResponse] = useState<null | String>(null)
+   const [calculTime, setCalculTime] = useState<number>(Date.now())
    const [calcul, setCalcul] = useState("")
    useEffect(() => {
       invoke("random_calcul").then((data: any) => {
@@ -39,6 +41,7 @@ function Math() {
          ) : calculIsValidated === false ? (
             <>
                <h1 className="text-white font-mono">The result is <span className="text-red-700">incorrect</span>.</h1>
+               <h1 className="text-white font-mono">The answer was <span className="text-green-700">{ correctCalculResponse }</span>.</h1>
 
                <div className="flex space-x-2">
                   <button onClick={newChallenge} className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8">
@@ -60,9 +63,11 @@ function Math() {
 
                <button onClick={() => {
                   invoke("validate_calcul", {
-                     calcul: calcul
+                     calcul: calcul,
+                     time: (Date.now() - calculTime) / 1000
                   }).then((data: any) => {
-                     setCalculIsValidated(data)
+                     setCalculIsValidated(data[0])
+                     setCorrectCalculResponse(data[1])
                   })
                }} className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8">
                   Send

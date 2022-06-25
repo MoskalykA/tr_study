@@ -2,7 +2,7 @@ use arc_swap::ArcSwap;
 use std::sync::Arc;
 use rand::Rng;
 use eval::eval;
-use crate::stats::{init_save_file, get_content, write_content};
+use crate::stats::{init_save_file, get_content, write_content, OldCalcul};
 
 lazy_static! {
    static ref CALCUL: ArcSwap<&'static str> = {
@@ -40,21 +40,34 @@ pub fn random_calcul() -> String {
 }
 
 #[tauri::command]
-pub fn validate_calcul(calcul: String) -> bool {
+pub fn validate_calcul(calcul: String, time: f32) -> (bool, String) {
    init_save_file();
 
-   let calcul_is_valid = calcul == eval(**CALCUL.load()).unwrap().to_string();
+   let eval = eval(**CALCUL.load()).unwrap().to_string();
+   let calcul_is_valid = calcul == eval.clone();
    if calcul_is_valid {
       let mut stats = get_content();
-      stats.math.number_of_successes += 1;
+      stats.calcul.number_of_successes += 1;
+      stats.calcul.old_calculs.push(OldCalcul {
+         calcul: (**CALCUL.load()).to_string(),
+         solution: eval.clone(),
+         response: calcul,
+         time
+      });
 
       write_content(stats);
    } else {
       let mut stats = get_content();
-      stats.math.number_of_defeats += 1;
+      stats.calcul.number_of_defeats += 1;
+      stats.calcul.old_calculs.push(OldCalcul {
+         calcul: (**CALCUL.load()).to_string(),
+         solution: eval.clone(),
+         response: calcul,
+         time
+      });
       
       write_content(stats);
    }
 
-   calcul_is_valid
+   (calcul_is_valid, eval.clone())
 }

@@ -1,8 +1,8 @@
-import MathType from "./Math"
+import CalculType from "./Calcul"
 import WritingType from "./Writing"
 
 interface Stats {
-   math: MathType,
+   calcul: CalculType,
    writing: WritingType
 }
 
