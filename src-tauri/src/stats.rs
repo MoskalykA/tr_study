@@ -81,3 +81,9 @@ pub fn get_content() -> Stats {
 pub fn write_content(content: Stats) {
    fs::write(get_file_path(), serde_json::to_string(&content).unwrap()).unwrap();
 }
+
+#[tauri::command]
+pub fn get_data() -> Stats {
+   init_save_file();
+   get_content()
+}
