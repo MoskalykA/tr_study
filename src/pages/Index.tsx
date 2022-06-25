@@ -29,7 +29,7 @@ function Index() {
    return (
       <div className="flex flex-col justify-center items-center h-screen space-y-10">
          <div className="flex space-x-2">
-            <Link to="/math" className="flex justify-center items-center border border-zinc-700 rounded p-4 transition-all duration-1000 hover:shadow-2xl hover:cursor-pointer hover:p-8">
+            <Link to="/calcul" className="flex justify-center items-center border border-zinc-700 rounded p-4 transition-all duration-1000 hover:shadow-2xl hover:cursor-pointer hover:p-8">
                <TbMathSymbols className="w-5 h-5 text-white"/>
             </Link>
 

@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom"
 import Index from "./pages/Index"
-import Math from "./pages/Math"
+import Calcul from "./pages/Calcul"
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/math" element={<Math />} />
+        <Route path="/calcul" element={<Calcul />} />
       </Routes>
     </div>
   )

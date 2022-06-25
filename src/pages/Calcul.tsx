@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/tauri"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
-function Math() {
+function Calcul() {
    const [calculInstruction, setCalculInstruction] = useState("")
    const [calculIsValidated, setCalculIsValidated] = useState<null | Boolean>(null)
    const [correctCalculResponse, setCorrectCalculResponse] = useState<null | String>(null)
@@ -78,4 +78,4 @@ function Math() {
    )
 }
 
-export default Math
+export default Calcul
