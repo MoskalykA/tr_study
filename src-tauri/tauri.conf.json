@@ -30,7 +30,7 @@
         "icons/icon.ico"
       ],
       "identifier": "com.tauri.dev",
-      "longDescription": "Tr Study is an application which aims to practice mental calculations but also to practice writing sentences or words without mistakes in French.",
+      "longDescription": "Tr Study is an application that aims to practice mental arithmetic but also to practice different topics in the future.",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
