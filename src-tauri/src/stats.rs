@@ -112,7 +112,7 @@ pub fn get_data() -> Stats {
 pub fn get_average_time(to: String) -> f32 {
    init_save_file();
 
-   if to == "math" {
+   if to == "calcul" {
       let mut time: f32 = 0.0;
       let old_calculs = get_content().clone().calcul.old_calculs;
       let len: f32 = old_calculs.len() as f32;

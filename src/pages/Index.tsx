@@ -6,17 +6,23 @@ import StatsType from "../types/Stats"
 
 function Index() {
    const [data, setData] = useState<StatsType | null>(null)
-   const [averageTime, setAverageTime] = useState<number>(0)
+   const [calculAverageTime, setCalculAverageTime] = useState<number>(0)
+   const [writingAverageTime, setWritingAverageTime] = useState<number>(0)
    useEffect(() => {
       invoke("get_data").then((data: any) => {
          setData(data)
       })
 
       invoke("get_average_time", {
-         to: "math"
+         to: "calcul"
       }).then((data: any) => {
-         console.log(data)
-         setAverageTime(data)
+         setCalculAverageTime(data)
+      })
+
+      invoke("get_average_time", {
+         to: "writing"
+      }).then((data: any) => {
+         setWritingAverageTime(data)
       })
    }, [])
 
@@ -39,7 +45,7 @@ function Index() {
                <div>
                   <h1 className="text-white font-mono">Number of successes: { data?.calcul.number_of_successes }</h1>
                   <h1 className="text-white font-mono">Number of defeats: { data?.calcul.number_of_defeats }</h1>
-                  <h1 className="text-white font-mono">Average time: { averageTime.toFixed(2) } seconds</h1>
+                  <h1 className="text-white font-mono">Average time: { calculAverageTime.toFixed(2) } seconds</h1>
                </div>
             </div>
 
@@ -49,7 +55,7 @@ function Index() {
                <div>
                   <h1 className="text-white font-mono">Number of successes: { data?.writing.number_of_successes }</h1>
                   <h1 className="text-white font-mono">Number of defeats: { data?.writing.number_of_defeats }</h1>
-                  <h1 className="text-white font-mono">Average time: { averageTime.toFixed(2) } seconds</h1>
+                  <h1 className="text-white font-mono">Average time: { writingAverageTime.toFixed(2) } seconds</h1>
                </div>
             </div>
          </div>
