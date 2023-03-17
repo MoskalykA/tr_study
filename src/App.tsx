@@ -1,16 +1,20 @@
-import { Routes, Route } from "react-router-dom"
-import Index from "./pages/Index"
-import Calcul from "./pages/Calcul"
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Index from "@/pages/Index";
+import Calcul from "@/pages/Calcul";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Index />,
+  },
+  {
+    path: "/calcul",
+    element: <Calcul />,
+  },
+]);
 
 function App() {
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/calcul" element={<Calcul />} />
-      </Routes>
-    </div>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

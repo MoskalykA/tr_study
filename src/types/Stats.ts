@@ -1,7 +1,12 @@
-import CalculType from "./Calcul"
-
-interface Stats {
-   calcul: CalculType
+interface OldCalcul {
+  calcul: string;
+  solution: string;
+  response: string;
+  time: number;
 }
 
-export default Stats
+export interface Stats {
+  numberOfSuccesses: number;
+  numberOfDefeats: number;
+  oldCalculs: Array<OldCalcul>;
+}

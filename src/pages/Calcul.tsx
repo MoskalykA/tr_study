@@ -1,81 +1,118 @@
-import { invoke } from "@tauri-apps/api/tauri"
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { CalculResponse } from "@/types/CalculResponse";
+import { invoke } from "@tauri-apps/api/tauri";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Calcul() {
-   const [calculInstruction, setCalculInstruction] = useState("")
-   const [calculIsValidated, setCalculIsValidated] = useState<null | Boolean>(null)
-   const [correctCalculResponse, setCorrectCalculResponse] = useState<null | String>(null)
-   const [calculTime, setCalculTime] = useState<number>(Date.now())
-   const [calcul, setCalcul] = useState("")
-   useEffect(() => {
-      invoke("random_calcul").then((data: any) => {
-         setCalculInstruction(data)
-      })
-   }, [])
+  const [drawResponse, setDrawResponse] = useState<boolean>(false);
+  const [instruction, setInstruction] = useState<string>("");
+  const [calcul, setCalcul] = useState<string>("");
+  const [correctAnswer, setCorrectAnswer] = useState<boolean>(false);
+  const [correction, setCorrection] = useState<string>("");
+  const [time, setTime] = useState<number>(0);
 
-   const newChallenge = () => {
-      invoke("random_calcul").then((data: any) => {
-         setCalculInstruction(data)
-         setCalculIsValidated(null)
-         setCalcul("")
-      })
-   }
+  useEffect(() => {
+    invoke<string>("random_calcul").then((data: string) => {
+      setInstruction(data);
+    });
+  }, []);
 
-   return (
-      <div className="flex flex-col justify-center items-center h-screen">
-         { calculIsValidated ? (
-            <>
-               <h1 className="text-white font-mono">The result is <span className="text-green-700">correct</span>.</h1>
+  const newChallenge = (): void => {
+    invoke<string>("random_calcul").then((data: string) => {
+      setDrawResponse(false);
+      setInstruction(data);
+      setCalcul("");
+      setCorrectAnswer(false);
+      setCorrection("");
+      setTime(0);
+    });
+  };
 
-               <div className="flex space-x-2">
-                  <button onClick={newChallenge} className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8">
-                     New challenge
-                  </button>
+  return (
+    <div className="flex flex-col justify-center items-center h-screen">
+      {drawResponse ? (
+        <>
+          <h1 className="text-white font-mono">
+            The result is{" "}
+            {correctAnswer ? (
+              <span className="text-green-700">correct</span>
+            ) : (
+              <span className="text-red-700">incorrect</span>
+            )}
+            .
+          </h1>
 
-                  <Link to="/" className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8">
-                     Back to index
-                  </Link>
-               </div>
-            </>
-         ) : calculIsValidated === false ? (
-            <>
-               <h1 className="text-white font-mono">The result is <span className="text-red-700">incorrect</span>.</h1>
-               <h1 className="text-white font-mono">The answer was <span className="text-green-700">{ correctCalculResponse }</span>.</h1>
+          {!correctAnswer && (
+            <h1 className="text-white font-mono">
+              The answer was{" "}
+              <span className="text-green-700">{correction}</span>.
+            </h1>
+          )}
 
-               <div className="flex space-x-2">
-                  <button onClick={newChallenge} className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8">
-                     New challenge
-                  </button>
+          <div className="flex space-x-2">
+            <button
+              onClick={newChallenge}
+              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
+            >
+              New challenge
+            </button>
 
-                  <Link to="/" className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8">
-                     Back to index
-                  </Link>
-               </div>
-            </>
-         ) : (
-            <>
-               <h1 className="text-white font-mono">{ calculInstruction }</h1>
+            <Link
+              to="/"
+              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
+            >
+              Back to index
+            </Link>
+          </div>
+        </>
+      ) : (
+        <>
+          <h1 className="text-white font-mono">{instruction}</h1>
 
-               <input onChange={(e: any) => {
-                  setCalcul(e.target.value)
-               }} className="bg-zinc-800/50 border border-zinc-700 rounded focus:outline-0 text-white font-mono p-1" type="text"/>
+          <input
+            onChange={(e: any) => {
+              setCalcul(e.target.value);
 
-               <button onClick={() => {
-                  invoke("validate_calcul", {
-                     calcul: calcul,
-                     time: (Date.now() - calculTime) / 1000
-                  }).then((data: any) => {
-                     setCalculIsValidated(data[0])
-                     setCorrectCalculResponse(data[1])
-                  })
-               }} className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8">
-                  Send
-               </button>
-            </>
-         )}
-      </div>
-   )
+              if (time == 0) {
+                setTime(new Date().getTime());
+              }
+            }}
+            className="bg-zinc-800/50 border border-zinc-700 rounded focus:outline-0 text-white font-mono p-1"
+            type="text"
+          />
+
+          <div className="flex space-x-2">
+            <button
+              onClick={() => {
+                if (time == 0) {
+                  newChallenge();
+                } else {
+                  invoke<CalculResponse>("validate_calcul", {
+                    calcul: calcul,
+                    time: (new Date().getTime() - time) / 1000,
+                  }).then((data: CalculResponse) => {
+                    setDrawResponse(true);
+                    setCorrectAnswer(data.correctAnswer);
+                    setCorrection(data.correction);
+                  });
+                }
+              }}
+              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
+            >
+              My answer is correct?
+            </button>
+
+            <Link
+              to="/"
+              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
+            >
+              Back
+            </Link>
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
-export default Calcul
+export default Calcul;
