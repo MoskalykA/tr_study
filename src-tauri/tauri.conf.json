@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "tr_study",
+    "productName": "tr-study",
     "version": "0.1.3"
   },
   "tauri": {
@@ -27,7 +27,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.moskalyka.tr_study",
+      "identifier": "com.moskalyka.tr-study",
       "longDescription": "Tr Study is an application that aims to practice mental arithmetic but also to practice different topics in the future.",
       "targets": "all"
     },
