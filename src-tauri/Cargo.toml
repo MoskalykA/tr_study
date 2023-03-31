@@ -1,7 +1,7 @@
 [package]
 name = "tr_study"
 version = "0.0.0"
-description = "A Tauri App"
+description = "Tr Study is an application that aims to practice mental arithmetic but also to practice different topics in the future."
 authors = ["you"]
 license = ""
 repository = ""
