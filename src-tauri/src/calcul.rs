@@ -13,10 +13,10 @@ fn get_random_number(max: u8) -> u8 {
 fn get_random_operator() -> String {
     let num = rand::thread_rng().gen_range(0..3);
     match num {
-        0 => "+".to_string(),
-        1 => "-".to_string(),
-        2 => "*".to_string(),
-        3 => "/".to_string(),
+        0 => " + ".to_string(),
+        1 => " - ".to_string(),
+        2 => " * ".to_string(),
+        3 => " / ".to_string(),
         _ => unimplemented!("random operator"),
     }
 }
