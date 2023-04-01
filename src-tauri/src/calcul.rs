@@ -4,7 +4,7 @@ use crate::{
 };
 use eval::eval;
 use rand::Rng;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 fn get_random_number(max: u8) -> u8 {
     rand::thread_rng().gen_range(0..max)
@@ -39,7 +39,7 @@ pub fn random_calcul(app_data: tauri::State<'_, AppData>) -> String {
 #[serde(rename_all = "camelCase")]
 pub struct CalculResponse {
     pub correction: String,
-    pub correct_answer: bool
+    pub correct_answer: bool,
 }
 
 #[tauri::command]
@@ -77,6 +77,6 @@ pub fn validate_calcul(
 
     CalculResponse {
         correction: eval,
-        correct_answer: calcul_is_valid
+        correct_answer: calcul_is_valid,
     }
 }
