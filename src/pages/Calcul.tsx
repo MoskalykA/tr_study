@@ -32,7 +32,7 @@ function Calcul() {
     <div className="flex flex-col justify-center items-center h-screen">
       {drawResponse ? (
         <>
-          <h1 className="text-white font-mono">
+          <h1 className="text-white font-quicksand">
             The result is{" "}
             {correctAnswer ? (
               <span className="text-green-700">correct</span>
@@ -43,7 +43,7 @@ function Calcul() {
           </h1>
 
           {!correctAnswer && (
-            <h1 className="text-white font-mono">
+            <h1 className="text-white font-quicksand">
               The answer was{" "}
               <span className="text-green-700">{correction}</span>.
             </h1>
@@ -52,14 +52,14 @@ function Calcul() {
           <div className="flex space-x-2">
             <button
               onClick={newChallenge}
-              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
+              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-quicksand p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
             >
               New challenge
             </button>
 
             <Link
               to="/"
-              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
+              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-quicksand p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
             >
               Back to index
             </Link>
@@ -67,7 +67,7 @@ function Calcul() {
         </>
       ) : (
         <>
-          <h1 className="text-white font-mono">{instruction}</h1>
+          <h1 className="text-white font-quicksand">{instruction}</h1>
 
           <input
             onChange={(e: any) => {
@@ -77,7 +77,7 @@ function Calcul() {
                 setTime(new Date().getTime());
               }
             }}
-            className="bg-zinc-800/50 border border-zinc-700 rounded focus:outline-0 text-white font-mono p-1"
+            className="bg-zinc-800/50 border border-zinc-700 rounded focus:outline-0 text-white font-quicksand p-1"
             type="text"
           />
 
@@ -97,14 +97,14 @@ function Calcul() {
                   });
                 }
               }}
-              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
+              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-quicksand p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
             >
               My answer is correct?
             </button>
 
             <Link
               to="/"
-              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-mono p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
+              className="bg-zinc-800/50 border border-zinc-700 rounded text-white font-quicksand p-1 px-4 mt-4 transition-all duration-1000 hover:shadow-2xl hover:p-2 hover:px-8"
             >
               Back
             </Link>

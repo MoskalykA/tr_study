@@ -33,15 +33,15 @@ function Index() {
           <TbMathSymbols className="w-5 h-5 text-white" />
 
           <div>
-            <h1 className="text-white font-mono">
+            <h1 className="text-white font-quicksand">
               Number of successes: {data?.numberOfDefeats}
             </h1>
 
-            <h1 className="text-white font-mono">
+            <h1 className="text-white font-quicksand">
               Number of defeats: {data?.numberOfSuccesses}
             </h1>
 
-            <h1 className="text-white font-mono">
+            <h1 className="text-white font-quicksand">
               Average time: {calculAverageTime.toFixed(2)} seconds
             </h1>
           </div>
